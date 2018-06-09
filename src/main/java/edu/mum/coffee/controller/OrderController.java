@@ -12,56 +12,60 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import edu.mum.coffee.domain.Order;
 import edu.mum.coffee.domain.Product;
+import edu.mum.coffee.service.OrderService;
 import edu.mum.coffee.service.ProductService;
 
 @Controller
-@RequestMapping("/products")
-public class ProductController {
+@RequestMapping("/orders")
+public class OrderController {
+
 	@Autowired
-	private ProductService service;
+	private OrderService service;
 	
-	@GetMapping("/")
+	@GetMapping
 	public String get(Model model) 
 	{
-		model.addAttribute("products", service.getAllProduct());
-		return "products/index";
+		model.addAttribute("orders", service.findAll());
+		return "orders/index";
 	}
 	
 	@GetMapping("/add")
-	public String add(@ModelAttribute("product") Product product) {
-		return "products/add";
+	public String add(@ModelAttribute("order") Order order) {
+		return "orders/add";
 	}
 	
 	@PostMapping({"/add"})
-	public String add(@Valid Product product, BindingResult result) {
+	public String add(@Valid Order order, BindingResult result) {
 		if(result.hasErrors()) {
-			return "products/add";
+			return "orders/add";
 		}
-		service.addProduct(product);
-		return "redirect:/products/";
+		service.addOrder(order);
+		return "redirect:/orders/";
 	}
 	
 	@GetMapping("/edit/{id}")
-	public String edit(@PathVariable int id, @ModelAttribute("product") Product product, Model model) {
-		model.addAttribute("product", service.getProduct(id));
-		return "products/edit";
+	public String edit(@PathVariable int id, @ModelAttribute("order") Order order, Model model) {
+		model.addAttribute("product", service.getOrder(id));
+		return "orders/edit";
 	}
 	
+	
 	@PostMapping("/edit/{id}")
-	public String edit(@PathVariable int id, @Valid Product product, BindingResult result) {
+	public String edit(@PathVariable int id, @Valid Order order, BindingResult result) {
 		if(result.hasErrors()) {
-			product.setId(id);
-			return "products/edit";
+			order.setId(id);
+			return "orders/edit";
 		}
 		
-		service.editProduct(id, product);		
-		return "redirect:/products/";
+		service.editOrder(id, order);		
+		return "redirect:/orders/";
 	}
 	
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable int id) {
-		service.deleteProduct(id);
-		return "redirect:/products/";
+		service.deleteOrder(id);
+		return "redirect:/orders/";
 	}
 }
