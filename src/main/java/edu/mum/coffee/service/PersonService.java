@@ -2,34 +2,32 @@ package edu.mum.coffee.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import edu.mum.coffee.domain.Person;
-import edu.mum.coffee.repository.PersonRepository;
+
 
 @Service
 @Transactional
 public class PersonService {
 
-	@Autowired
-	private PersonRepository personRepository;
+	RestTemplate template = new RestTemplate();
 
-	public Person savePerson(Person person) {
-		return personRepository.save(person);
+	public List<Person> getAllProduct() {
+		return (List<Person>) template.getForObject("http://localhost:8080/persons", List.class);
 	}
 
-	public List<Person> findByEmail(String email) {
-		return personRepository.findByEmail(email);
+	public void addProduct(Person pers) {
+		template.postForObject("http://localhost:8080/persons", pers, Person.class);
 	}
 
-	public Person findById(Long id) {
-		return personRepository.findOne(id);
+	public void editProduct(int id, Person pers) {
+		template.put("http://localhost:8080/persons/" + String.valueOf(id), pers);
 	}
 
-	public void removePerson(Person person) {
-		personRepository.delete(person);
+	public void deleteProduct(int id) {
+		template.delete("http://localhost:8080/persons/" + String.valueOf(id));
 	}
-
 }

@@ -1,49 +1,33 @@
 package edu.mum.coffee.service;
 
-import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import edu.mum.coffee.domain.Order;
-import edu.mum.coffee.domain.Person;
-import edu.mum.coffee.domain.Product;
-import edu.mum.coffee.repository.OrderRepository;
 
 @Service
 @Transactional
 public class OrderService {
-	@Autowired
-	private OrderRepository orderRepository;
-	
-	public Order save(Order order){
-		return orderRepository.save(order);
-	}
-	
-	public void delete(Order order){
-		orderRepository.delete(order);
-	}
-	
-	public List<Order> findByProduct(Product product) {
-		return orderRepository.findDistinctOrderByOrderLines_Product(product);
-	}
-	
-	public List<Order> findByPerson(Person person) {
-		return orderRepository.findOrderByPerson(person);
+
+	RestTemplate template = new RestTemplate();
+
+	public List<Order> getAllOrder() {
+		return (List<Order>) template.getForObject("http://localhost:8080/orders", List.class);
 	}
 
-	public List<Order> findByDate(Date minDate, Date maxDate) {
-		return orderRepository.findOrderByOrderDateBetween(minDate, maxDate);
+	public void addProduct(Order ord) {
+		template.postForObject("http://localhost:8080/orders", ord, Order.class);
 	}
 
-	public Order findById(int id){
-		return orderRepository.findOne(id);
+	public void editProduct(int id, Order ord) {
+		template.put("http://localhost:8080/orders/" + String.valueOf(id), ord);
 	}
 
-	public List<Order> findAll(){
-		return orderRepository.findAll();
+	public void deleteProduct(int id) {
+		template.delete("http://localhost:8080/orders/" + String.valueOf(id));
 	}
-
 }
