@@ -1,29 +1,33 @@
 package edu.mum.coffee.domain;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Person {
-	@Id
-	@GeneratedValue
 	private long id;
 	private String firstName;
 	private String lastName;
 	private String email;
-	@OneToOne(cascade = CascadeType.ALL)
+	private String password;
+
 	private Address address;
 	private String phone;
 	private boolean enable;
+	private boolean admin;
+	
+	public Person() {
+		enable = true;
+		admin = false;
+	}
 
 	public long getId() {
 		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public boolean isEnable() {
@@ -33,7 +37,13 @@ public class Person {
 	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
+	
 
+	public boolean isAdmin() { return admin; }
+	public void setAdmin(boolean admin) { this.admin = admin; }
+	
+	@NotNull
+	@NotBlank
 	public String getFirstName() {
 		return firstName;
 	}
@@ -42,6 +52,8 @@ public class Person {
 		this.firstName = firstName;
 	}
 
+	@NotNull
+	@NotBlank
 	public String getLastName() {
 		return lastName;
 	}
@@ -50,6 +62,9 @@ public class Person {
 		this.lastName = lastName;
 	}
 
+	@NotNull
+	@NotBlank
+	@Email
 	public String getEmail() {
 		return email;
 	}
@@ -58,6 +73,17 @@ public class Person {
 		this.email = email;
 	}
 
+	@NotNull
+	@NotBlank
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@NotNull
 	public Address getAddress() {
 		return address;
 	}
@@ -74,7 +100,4 @@ public class Person {
 		this.phone = phone;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
 }

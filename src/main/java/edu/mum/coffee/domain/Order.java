@@ -5,30 +5,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-@Entity
-@Table(name = "OrderTable")
 public class Order {
 
-	@Id
-	@GeneratedValue
 	private int id;
-	@Temporal(TemporalType.DATE)
 	private Date orderDate;
 
-	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Orderline> orderLines = new ArrayList<Orderline>();
-	@OneToOne
 	private Person person;
 
 	public int getId() {
@@ -87,9 +69,6 @@ public class Order {
 			orderline.setOrder(null);
 		}
 		orderLines.clear();
-	}
-	public void setId(int id) {
-		this.id = id;
 	}
 
 }

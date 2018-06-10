@@ -1,20 +1,19 @@
 package edu.mum.coffee.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@Entity
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Address {
 
-	@Id
-	@GeneratedValue
 	private int id;
 	private String city;
 	private String state;
 	private String country;
 	private String zipcode;
 
+	@NotNull
+	@NotBlank
 	public String getCity() {
 		return city;
 	}
@@ -23,6 +22,8 @@ public class Address {
 		this.city = city;
 	}
 
+	@NotNull
+	@NotBlank
 	public String getState() {
 		return state;
 	}
@@ -31,6 +32,8 @@ public class Address {
 		this.state = state;
 	}
 
+	@NotNull
+	@NotBlank
 	public String getCountry() {
 		return country;
 	}
@@ -39,6 +42,8 @@ public class Address {
 		this.country = country;
 	}
 
+	@NotNull
+	@NotBlank
 	public String getZipcode() {
 		return zipcode;
 	}

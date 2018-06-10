@@ -1,21 +1,12 @@
 package edu.mum.coffee.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Entity
 public class Product {
 
-	@Id
-	@GeneratedValue
 	private int id;
 	private String productName;
 	private String description;
 	private double price;
-	@Enumerated(EnumType.STRING)
+
 	private ProductType productType;
 
 	public Product() {
@@ -65,8 +56,9 @@ public class Product {
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+
 }

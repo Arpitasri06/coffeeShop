@@ -1,23 +1,14 @@
 package edu.mum.coffee.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
-@Table(name = "Orderline")
 public class Orderline {
 
-	@Id
-	@GeneratedValue
 	private int id;
 	private int quantity;
-	@OneToOne
+
 	private Product product;
-	@ManyToOne
+
 	private Order order;
 
 	public int getQuantity() {
@@ -36,10 +27,12 @@ public class Orderline {
 		this.product = product;
 	}
 
+	@JsonIgnore
 	public Order getOrder() {
 		return order;
 	}
 
+	@JsonIgnore
 	public void setOrder(Order order) {
 		this.order = order;
 	}
