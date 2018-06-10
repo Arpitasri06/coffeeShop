@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>People</title>
+</head>
+<body>
+	<div th:insert="~{/menu/menubar :: nav}"></div>
+	<main class="container">
+		<a class="btn btn-success" th:href="@{/people/add}"><i class="glyphicon glyphicon-plus"></i> Add person</a>
+		<table class="table table-hover table-stripped">
+			<thead>
+				<tr>
+					<th>First name</th>
+					<th>Last name</th>
+					<th>Email</th>
+					<th>Phone</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="person: ${people}">
+					<td th:text="${person.firstName}">Name</td>
+					<td th:text="${person.lastName}">Name</td>
+					<td th:text="${person.email}">Email</td>
+					<td th:text="${person.phone}">Phone</td>
+					<td>
+						<a class="btn btn-primary" th:href="@{/people/edit/__${person.id}__}">Edit</a>
+						<a class="btn btn-danger" th:href="@{/people/delete/__${person.id}__}">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>	
+	</main>
+	<div th:insert="~{/menu/menubar :: imports}"></div>
+</body>
+</html>
