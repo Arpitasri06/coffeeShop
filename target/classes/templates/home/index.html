@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>WAA Coffee Shop</title>
+</head>
+<body>
+	<div th:insert="~{/menu/menubar :: nav}"></div>
+	<main class="container">
+	
+	<div class="row">
+		<div class="col-md-3" th:each="prod: ${products}">
+			<h3 th:text="${prod?.productName}">Name</h3>
+			<p th:text="${prod?.productType}">Type</p>
+			<p th:text="${prod?.description}">Description</p>
+			<p class="price" th:text="${#numbers.formatDecimal(prod?.price, 0, 'COMMA', 2, 'POINT')}">00.00</p>
+			<a th:href="@{/cart/add/__${prod?.id}__}">Add to cart</a>
+		</div>
+	</div>
+	
+	</main>
+	<div th:insert="~{/menu/menubar :: imports}"></div>
+</body>
+</html>

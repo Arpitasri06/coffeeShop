@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Products</title>
+</head>
+<body>
+	<div th:insert="~{/menu/menubar :: nav}"></div>
+	<main class="container">
+		<a class="btn btn-success" th:href="@{/products/add}"><i class="glyphicon glyphicon-plus"></i> New Product</a>
+		<table class="table table-hover table-stripped">
+			<thead>
+				<tr>
+					<th>Type</th>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Price</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="prod: ${products}">
+					<td th:text="${prod.productType}">Type</td>
+					<td th:text="${prod.productName}">Name</td>
+					<td th:text="${prod.description}">Description</td>
+					<td th:text="${#numbers.formatDecimal(prod.price, 0, 'COMMA', 2, 'POINT')}">Price</td>
+					<td>
+						<a class="btn btn-primary" th:href="@{/products/edit/__${prod.id}__}">Edit</a>
+						<a class="btn btn-danger" th:href="@{/products/delete/__${prod.id}__}">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>	
+	</main>
+	<div th:insert="~{/menu/menubar :: imports}"></div>
+</body>
+</html>
