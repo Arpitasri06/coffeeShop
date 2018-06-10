@@ -12,7 +12,7 @@
 
 <nav class="navbar navbar-default sidebar" role="navigation">
     <div class="container-fluid">
-    <span class="logo">Coffee Shop</span>
+    <span class="logo">Home</span>
   
     <div class="" id="">
        <ul class="nav navbar-nav" sec:authorize="isAnonymous()">
@@ -21,12 +21,12 @@
     </ul>
       <ul class="navbar-nav mr-auto" sec:authorize="isAuthenticated()">
 		<li class="nav-item"><a class="nav-link" href="/cart/">Cart</a></li>
-		<li class="nav-item"><a class="nav-link" href="/orders/">Order history</a></li>
+		<li class="nav-item"><a class="nav-link" href="/orders/">My Orders</a></li>
 		<li class="nav-item" sec:authorize="hasAuthority('ADMIN')"><a class="nav-link" href="/products/">Products</a></li>
 		<li class="nav-item" sec:authorize="hasAuthority('ADMIN')"><a class="nav-link" href="/people/">People</a></li>
     </ul>
     <ul class="navbar-nav navbar-right" sec:authorize="isAuthenticated()">
-      <li class="nav-item"><a class="nav-link" href="/account/update">Update your profile</a></li>
+      <li class="nav-item"><a class="nav-link" href="/account/update">Edit Profile</a></li>
       <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
     </ul>
     </div>
